@@ -37,7 +37,7 @@ class ChatApiController extends Controller
     curl_close($curl);
     //curl終了
     $result = json_decode($responseJsonStr, true);
-    return $result['results']->reply;
+    return $result['results'];
   }
 
   public function  getChat()
