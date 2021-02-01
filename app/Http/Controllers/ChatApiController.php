@@ -23,6 +23,7 @@ class ChatApiController extends Controller
       'apikey' => $key,
       'query' => $request->message,
     ];
+    //test
     //curl開始
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $api);
