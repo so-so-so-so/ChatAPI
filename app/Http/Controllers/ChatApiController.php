@@ -38,13 +38,25 @@ class ChatApiController extends Controller
     curl_close($curl);
     //curl終了
     $result = json_decode($responseJsonStr, true);
-    return $result['results'];
+    $apiMessage = $result['results'][0];
+    $parmas = Chat::create([
+      'message' => $apiMessage['reply'],
+      'value' => 2,
+    ]);
+    return $parmas;
   }
-
+  //取得処理
   public function  getChat()
   {
     $chats = Chat::orderBy('created_at', 'desc')->get();
     $json = ["chats" => $chats];
     return response()->json($json);
+  }
+  //削除処理
+  public function delete()
+  {
+    Chat::orderBy('created_at', 'desc')->delete();
+    $mess = "削除完了";
+    return $mess;
   }
 }

@@ -17,4 +17,21 @@ Route::get('/', function () {
   return view('chat');
 });
 Route::post('/post', 'ChatApiController@post');
+Route::post('/delete', 'ChatApiController@delete');
 Route::get('/getChat', 'ChatApiController@getChat');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
