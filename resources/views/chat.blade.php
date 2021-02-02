@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,13 +13,22 @@
 
 <body>
   <!-- 表示エリア -->
-  <div id="comment-data"></div>
+  <div class="card mx-auto  mt-3" style="width: 900px; ">
+    <div class="card-header">
+      TalkAPIと会話する
+    </div>
+    <div class="card-body">
+      <div id="comment-data"></div>
+    </div>
+  </div>
   <!-- 送信エリア -->
-  <input id="message" name="message" type="text">
-  <input id="value" name="value" type="hidden" value="1">
-  <input id="button" type="button" value="送信">
-  <!-- 削除 -->
-  <input id="delete" type="button" value="削除">
+  <div class="form">
+    <input id="message" name="message" type="text" placeholder="文章を書いてください">
+    <input id="value" name="value" type="hidden" value="1">
+    <input class="btn btn-outline-success" id="button" type="button" value="送信" style="height: 70px; width:195px; ">
+    <!-- 削除 -->
+    <input class="btn btn-outline-success" id="delete" type="button" value="削除" style="height: 70px; width:195px; ">
+  </div>
   <script src="{{ asset('/js/chat.js') }}">
   </script>
 </body>

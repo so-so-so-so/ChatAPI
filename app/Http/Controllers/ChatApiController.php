@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Chat;
+use App\Events\chatEvent;
 
 class ChatApiController extends Controller
 {
@@ -15,6 +16,7 @@ class ChatApiController extends Controller
       'message' => $request['message'],
       'value' => $request['value'],
     ]);
+    // event(new chatEvent($parmas));
     //api処理
     $api = "https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk";
     $key = "DZZtwdcJVT9TTp1WlnDajtu8pfuV90cO";
@@ -43,14 +45,17 @@ class ChatApiController extends Controller
       'message' => $apiMessage['reply'],
       'value' => 2,
     ]);
+    // event(new chatEvent($parmas));
     return $parmas;
   }
   //取得処理
   public function  getChat()
   {
     $chats = Chat::orderBy('created_at', 'desc')->get();
+    // $chats['created_at']->format('YYYY/MM/DD');
     $json = ["chats" => $chats];
     return response()->json($json);
+    // return $chats;
   }
   //削除処理
   public function delete()

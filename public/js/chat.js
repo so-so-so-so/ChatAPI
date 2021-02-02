@@ -15,13 +15,23 @@ function getChat() {
       for (var i = 0; i < data.chats.length; i++) {
         if (data.chats[i].value == "1") {
           var html = `
-          <div class="media comment-visible">
-          <p id="userChat">${data.chats[i].message}</p>
-          </div>`;
+          <div class="media left comment-visible mb-2">
+              <div class="media-body user comment-body ">
+              <img class="usericon" src="image/icon.png">
+              <p id="userChat">${data.chats[i].message}</p>
+              <label>${data.chats[i].created_at}</label>
+              </div>
+          </div>
+          `;
           $("#comment-data").append(html);
         } else if (data.chats[i].value == "2") {
-          var html = `<div class="media comment-visible">
-          <p id="apiChat">${data.chats[i].message}</p>
+          var html = `
+          <div class="media right comment-visible mb-2">
+              <div class="media-body api comment-body">
+              <img class="apiicon" src="image/api_icon.png">
+              <p id="apiChat">${data.chats[i].message}</p>
+              <label>${data.chats[i].created_at}</label>
+              </div>
           </div>`;
           $("#comment-data").append(html);
         }
@@ -31,8 +41,9 @@ function getChat() {
       alert("ajax Error");
     }
   });
-  setTimeout("getChat()", 3000);
+  setTimeout("getChat()", 1000);
 }
+
 //送信処理
 $('#button').click(function(event) {
   var message = $('input[name="message"]').val();
@@ -68,7 +79,11 @@ $('#button').click(function(event) {
       $('#error_message').append(`<li>${errorMessage}</li>`);
     }
   });
+  // window.Echo.channel("charming-bed-688").listen("PusherEvent", e => {
+  //   getChat()
+  // });
 });
+
 //リセット処理
 $('#delete').click(function(event) {
   //ajax設定

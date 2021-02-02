@@ -1,7 +1,69 @@
 @charset "utf-8";
+p {
+    margin: 0;
+    padding: 0;
+}
+#comment-data {
+    width: 100%;
+    height: 400px;
+    overflow: scroll;
+}
+#comment-data::-webkit-scrollbar {
+    display: none;
+}
+.comment-body {
+    margin-bottom: 20px;
+}
 #apiChat {
-    text-align: left;
+    margin-left: 60px;
 }
 #userChat {
-    text-align: right;
+    margin-left: 350px;
+}
+#apiChat,
+#userChat {
+    text-align: left;
+    max-width: 50%;
+    min-width: 20%;
+    font-size: 16px;
+    color: #546262;
+    background-color: #e6e6e6;
+    padding: 20px;
+    border-radius: 6px;
+    position: relative;
+}
+.comment-body label {
+    margin-top: 0px;
+    font-size: 8px;
+    color: #546262;
+}
+.user label {
+    margin-left: 675px;
+}
+.api label {
+    margin-left: 385px;
+}
+.usericon {
+    padding-top: 3px;
+    width: 60px;
+    float: right;
+}
+.apiicon {
+    padding-top: 6px;
+    width: 50px;
+    float: left;
+}
+#message {
+    width: 500px;
+    height: 70px;
+    border: none;
+    color: #546262;
+    font-size: 16px;
+    padding-left: 20px;
+    border: solid #bbb 1px;
+    margin-top: 15px;
+}
+.form {
+    width: 900px;
+    margin: 0 auto;
 }
