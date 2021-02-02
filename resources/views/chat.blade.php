@@ -13,7 +13,7 @@
 
 <body>
   <!-- 表示エリア -->
-  <div class="card mx-auto  mt-3" style="width: 900px; ">
+  <div class="card mx-auto  mt-5" style="width: 900px; ">
     <div class="card-header">
       TalkAPIと会話する
     </div>
