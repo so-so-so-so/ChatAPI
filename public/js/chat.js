@@ -13,35 +13,40 @@ function getChat() {
         .remove();
 
       for (var i = 0; i < data.chats.length; i++) {
-        if (data.chats[i].value == "1") {
           var html = `
           <div class="media left comment-visible mb-2">
-              <div class="media-body user comment-body ">
-              <img class="usericon" src="image/icon.png">
-              <p id="userChat">${data.chats[i].message}</p>
+              <div class="media-body class${data.chats[i].value} comment-body ">
+              <img class="icon${data.chats[i].value}" src="image/icon${data.chats[i].value}.png">
+              <p id="Chat${data.chats[i].value}">${data.chats[i].message}</p>
               <label>${data.chats[i].created_at}</label>
               </div>
           </div>
           `;
           $("#comment-data").append(html);
-        } else if (data.chats[i].value == "2") {
-          var html = `
-          <div class="media right comment-visible mb-2">
-              <div class="media-body api comment-body">
-              <img class="apiicon" src="image/api_icon.png">
-              <p id="apiChat">${data.chats[i].message}</p>
-              <label>${data.chats[i].created_at}</label>
-              </div>
-          </div>`;
-          $("#comment-data").append(html);
-        }
       }
     },
     error: () => {
       alert("ajax Error");
     }
   });
-  setTimeout("getChat()", 1000);
+  // setTimeout("getChat()", 1000);
+}
+//チャット追加処理
+function addChat(data){
+  console.log(data.value)
+  $("#comment-data")
+        .find(".comment-visible");
+          var html = `
+          <div class="media left comment-visible mb-2">
+              <div class="media-body class${data.value} comment-body ">
+              <img class="icon${data.value}" src="image/icon${data.value}.png">
+              <p id="Chat${data.value}">${data.message}</p>
+              <label>${data.created_at}</label>
+              </div>
+      </div>
+    `;
+    $("#comment-data").append(html);
+    $('#comment-data').animate({ scrollTop: $('#comment-data')[0].scrollHeight});
 }
 
 //送信処理
@@ -52,7 +57,6 @@ $('#button').click(function(event) {
     'message': message,
     'value': value
   };
-  console.log(data);
   //ajax設定
   $.ajaxSetup({
     headers: {
@@ -68,6 +72,9 @@ $('#button').click(function(event) {
   }).done(function(results) {
     //通信が成功したときの処理
     console.log(results);
+    for(var i = 0; i < results.length; i++){
+    addChat(results[i]);
+    }
   }).fail(function(jqXHR, textStatus, errorThrown) {
     //通信が失敗したときの処理
     $('#error_message').empty();
@@ -79,9 +86,6 @@ $('#button').click(function(event) {
       $('#error_message').append(`<li>${errorMessage}</li>`);
     }
   });
-  // window.Echo.channel("charming-bed-688").listen("PusherEvent", e => {
-  //   getChat()
-  // });
 });
 
 //リセット処理
@@ -100,6 +104,31 @@ $('#delete').click(function(event) {
     //通信が成功したときの処理
     console.log(results);
     getChat();
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    //通信が失敗したときの処理
+    $('#error_message').empty();
+    var text = $.parseJSON(jqXHR.responseText);
+    var errors = text.errors;
+    for (key in errors) {
+      var errorMessage = errors[key][0];
+      $('#error_message').append(`<li>${errorMessage}</li>`);
+    }
+  });
+});
+//csv処理
+$('#csv').click(function(event) {
+  //ajax設定
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  //ajax処理
+  $.ajax({
+    url: 'dlCSV',
+  }).done(function(results) {
+    //通信が成功したときの処理
+    console.log(results);
   }).fail(function(jqXHR, textStatus, errorThrown) {
     //通信が失敗したときの処理
     $('#error_message').empty();

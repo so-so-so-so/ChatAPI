@@ -14,14 +14,14 @@ p {
 .comment-body {
     margin-bottom: 20px;
 }
-#apiChat {
+#Chat2 {
     margin-left: 60px;
 }
-#userChat {
+#Chat1 {
     margin-left: 350px;
 }
-#apiChat,
-#userChat {
+#Chat2,
+#Chat1 {
     text-align: left;
     max-width: 50%;
     min-width: 20%;
@@ -37,18 +37,18 @@ p {
     font-size: 8px;
     color: #546262;
 }
-.user label {
+.class1 label {
     margin-left: 675px;
 }
-.api label {
+.class2 label {
     margin-left: 385px;
 }
-.usericon {
+.icon1 {
     padding-top: 3px;
     width: 60px;
     float: right;
 }
-.apiicon {
+.icon2 {
     padding-top: 6px;
     width: 50px;
     float: left;
@@ -66,4 +66,7 @@ p {
 .form {
     width: 900px;
     margin: 0 auto;
+}
+.btn {
+    margin-top: -3px;
 }

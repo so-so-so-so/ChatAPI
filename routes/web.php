@@ -17,7 +17,7 @@ Route::get('/', function () {
   return view('chat');
 });
 Route::post('/post', 'ChatApiController@post');
-Route::post('/postapi', 'ChatApiController@post');
+Route::get('/dlCSV', 'ChatApiController@dlCSV');
 Route::post('/delete', 'ChatApiController@delete');
 Route::get('/getChat', 'ChatApiController@getChat');
 

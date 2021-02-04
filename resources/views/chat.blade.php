@@ -28,6 +28,8 @@
     <input class="btn btn-outline-success" id="button" type="button" value="送信" style="height: 70px; width:195px; ">
     <!-- 削除 -->
     <input class="btn btn-outline-success" id="delete" type="button" value="削除" style="height: 70px; width:195px; ">
+    <!-- csv出力 -->
+    <input class="btn btn-outline-success mt-1" id="csv" type="button" value="csv出力" style="height: 70px; width:900px; ">
   </div>
   <script src="{{ asset('/js/chat.js') }}">
   </script>

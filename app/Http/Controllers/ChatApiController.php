@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Chat;
 use App\Events\chatEvent;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ChatApiController extends Controller
 {
@@ -16,7 +17,7 @@ class ChatApiController extends Controller
       'message' => $request['message'],
       'value' => $request['value'],
     ]);
-    // event(new chatEvent($parmas));
+    // return  $parmas;
     //api処理
     $api = "https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk";
     $key = "DZZtwdcJVT9TTp1WlnDajtu8pfuV90cO";
@@ -25,7 +26,6 @@ class ChatApiController extends Controller
       'apikey' => $key,
       'query' => $request->message,
     ];
-    //test
     //curl開始
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $api);
@@ -41,18 +41,16 @@ class ChatApiController extends Controller
     //curl終了
     $result = json_decode($responseJsonStr, true);
     $apiMessage = $result['results'][0];
-    $parmas = Chat::create([
+    $apiParmas = Chat::create([
       'message' => $apiMessage['reply'],
       'value' => 2,
     ]);
-    // event(new chatEvent($parmas));
-    return $parmas;
+    return [$parmas, $apiParmas];
   }
   //取得処理
   public function  getChat()
   {
-    $chats = Chat::orderBy('created_at', 'desc')->get();
-    // $chats['created_at']->format('YYYY/MM/DD');
+    $chats = Chat::orderBy('created_at', 'asc')->get();
     $json = ["chats" => $chats];
     return response()->json($json);
     // return $chats;
@@ -63,5 +61,24 @@ class ChatApiController extends Controller
     Chat::orderBy('created_at', 'desc')->delete();
     $mess = "削除完了";
     return $mess;
+  }
+  //ファイル出力
+  public  function  dlCSV(Request $request)
+  {
+    $response = new StreamedResponse(function () use ($request) {
+      $tables = Chat::all();
+      $head = ['id', 'チャットメッセージ', '判別値', '作成日', '更新日'];
+      $stream = fopen('php://output', 'w');
+
+      // stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT');
+      fputcsv($stream, $head);
+      foreach ($tables as $table) {
+        fputcsv($stream, [$table->id, $table->message, $table->value, $table->created_at, $table->updated_at]);
+      };
+      fclose($stream);
+    });
+    $response->headers->set('Content-Type', 'text/csv');
+    $response->headers->set('Content-Disposition', 'attachment; filename="DB出力.csv"');
+    return $response;
   }
 }
