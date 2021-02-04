@@ -14,14 +14,14 @@ p {
 .comment-body {
     margin-bottom: 20px;
 }
-#Chat2 {
+.Chat2 {
     margin-left: 60px;
 }
-#Chat1 {
+.Chat1 {
     margin-left: 350px;
 }
-#Chat2,
-#Chat1 {
+.Chat2,
+.Chat1 {
     text-align: left;
     max-width: 50%;
     min-width: 20%;
@@ -69,4 +69,7 @@ p {
 }
 .btn {
     margin-top: -3px;
+}
+.soundButton {
+    margin-left: 5px;
 }
