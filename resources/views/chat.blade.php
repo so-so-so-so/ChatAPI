@@ -31,7 +31,6 @@
     <!-- csv出力 -->
     <input class="btn btn-outline-success mt-1" id="csv" type="button" value="csv出力" style="height: 70px; width:900px; ">
   </div>
-  <!-- ログイン -->
   <script src="{{ asset('/js/chat.js') }}">
   </script>
 </body>

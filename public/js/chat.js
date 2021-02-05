@@ -83,7 +83,7 @@ function addChat(data){
     //投稿したときスクロール位置を変える
     $('#comment-data').animate({ scrollTop: $('#comment-data')[0].scrollHeight});
 }
-//csv 
+//csv
 function getCsv(){
 //ajax設定
 $.ajaxSetup({
@@ -160,6 +160,13 @@ $('#button').click(function(event) {
     console.log(results);
     for(var i = 0; i < results.length; i++){
       addChat(results[i]);
+      if(i==1){
+        var msg = new SpeechSynthesisUtterance();
+        var text = results[i]["message"];
+        msg.text = text;
+        msg.lang = 'ja-JP';
+        window.speechSynthesis.speak(msg);
+      }
     }
   }).fail(function(jqXHR, textStatus, errorThrown) {
     //通信が失敗したときの処理
@@ -193,74 +200,4 @@ $(document).on('click', '.soundButton', function(){
   msg.text = text;
   msg.lang = 'ja-JP';
   window.speechSynthesis.speak(msg);
-});
-//ログイン
-$('#login').click(function(event) {
-  var email = $('input[name="email"]').val();
-  var password = $('input[name="password"]').val();
-  var data = {
-    'email': email,
-    'password': password
-  };
-  //ajax設定
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-  //ajax処理
-  $.ajax({
-    url: 'login',
-    type: 'POST',
-    dataType: "json",
-    data: data,
-  }).done(function(results) {
-    //通信が成功したときの処理
-    console.log(results);
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    //通信が失敗したときの処理
-    $('#error_message').empty();
-
-    var text = $.parseJSON(jqXHR.responseText);
-    var errors = text.errors;
-    for (key in errors) {
-      var errorMessage = errors[key][0];
-      $('#error_message').append(`<li>${errorMessage}</li>`);
-    }
-  });
-});
-//登録
-$('#regist').click(function(event) {
-  var email = $('input[name="email"]').val();
-  var password = $('input[name="password"]').val();
-  var data = {
-    'name': email,
-    'password': password
-  };
-  //ajax設定
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-  //ajax処理
-  $.ajax({
-    url: 'register',
-    type: 'POST',
-    dataType: "json",
-    data: data,
-  }).done(function(results) {
-    //通信が成功したときの処理
-    console.log(results);
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    //通信が失敗したときの処理
-    $('#error_message').empty();
-
-    var text = $.parseJSON(jqXHR.responseText);
-    var errors = text.errors;
-    for (key in errors) {
-      var errorMessage = errors[key][0];
-      $('#error_message').append(`<li>${errorMessage}</li>`);
-    }
-  });
 });

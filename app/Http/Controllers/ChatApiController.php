@@ -57,7 +57,6 @@ class ChatApiController extends Controller
     //json形式で返す
     $json = ["chats" => $chats];
     return response()->json($json);
-    // return $chats;
   }
   //削除処理
   public function delete()

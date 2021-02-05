@@ -21,6 +21,6 @@ Route::get('/dlCSV', 'ChatApiController@dlCSV');
 Route::post('/delete', 'ChatApiController@delete');
 Route::get('/getChat', 'ChatApiController@getChat');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
